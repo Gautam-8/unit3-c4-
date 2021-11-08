@@ -8,16 +8,66 @@
 </head>
 <body>
     <div id='login'>
-        <form id='loginform' onsubmit="signup(event)">
+        <form id='loginform' onsubmit="login(event)">
     <h1>login</h1>
 
     <input type='text' id='username' placeholder="username"/>
     <input type='text' id='password' placeholder="password"/>
    
-    
     <input type='submit'/>
 </form>
 </div>
     
 </body>
+<script>
+    function login(e){
+    e.preventDefault();
+    let form = document.getElementById('loginform');
+    let userdata = {
+      
+        password:form.password.value,
+        username:form.username.value,
+       
+    }
+    var z= userdata.username;
+    userdata = JSON.stringify(userdata);
+
+    fetch(" https://masai-api-mocker.herokuapp.com/auth/login",{
+        method:'POST',
+        body:userdata,
+        headers:{
+            'Content-Type':'application/json',
+        },
+    })
+    .then((res) =>{
+        return res.json();
+    })
+    .then((res) =>{
+        console.log(res);
+        tokendata(z,res.token)
+        
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
+}
+
+
+function tokendata(z,token){
+
+    fetch(`https://masai-api-mocker.herokuapp.com/user/${z}`,{
+        headers:{
+            "Content-Type":"application/json",
+            Authorization:`Bearer ${token}`,
+        },
+    })
+    .then((res) =>{
+        return res.json();
+    })
+    .then((res)=>{
+        console.log(res);
+    });
+
+}
+</script>
 </html>
