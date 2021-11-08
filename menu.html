@@ -110,6 +110,8 @@ function cart(data){
     var cart=JSON.parse(localStorage.getItem('bag'));
     cart.push(data);
     localStorage.setItem('bag',JSON.stringify(cart));
+
+    window.location.href = "cart.html"
 }
 
 
