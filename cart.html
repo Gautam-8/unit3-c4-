@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+     #show{
+        width:100%;
+        height:400px;
+       
+
+        
+    }
+    button{
+        width:300px;
+        height:50px;
+    }
+    #show img{
+        width:35%;
+        margin:2%;
+    
+    }
+</style>
+<body>
+    
+</body>
+
+<h1>cart</h1>
+    <div id='show'>
+
+    </div>
+</html>
+<script>
+
+    var bagg = JSON.parse(localStorage.getItem('bag'));
+   
+function food(){
+
+    bagg.forEach((data)=>{
+
+console.log(data);
+
+
+let img = document.createElement('img');
+       img.src = data.meals[0].strMealThumb;
+       console.log(data.meals[0].strMealThumb);
+
+       let div = document.createElement('div');
+
+
+       let price = document.createElement('p');
+       price.innerText = 'price: '+499;
+
+       let inst = document.createElement('div');
+       inst.innerText = data.meals[0].strInstructions;
+
+       let add = document.createElement('button');
+       add.innerText = "placeorder";
+
+       add.onclick = function(){
+           order();
+       }
+
+       let show = document.getElementById('show');
+       
+
+       div.append(add,price,inst)
+       show.append(img,div);
+    })
+}
+food();
+
+
+function order(){
+
+    alert('your order is accepted');
+
+    setTimeout(() => {
+        alert('Your order is being cooked')
+    },3000);
+
+    setTimeout(() => {
+        alert('Your order is ready ')
+    },8000);
+
+    setTimeout(() => {
+        alert('order out for delivery ')
+    },10000);
+
+    setTimeout(() => {
+        alert('Order delivered')
+    },12000);
+}
+</script>
