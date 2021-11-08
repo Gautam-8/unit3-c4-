@@ -8,7 +8,7 @@
 </head>
 <body>
     <div id='signup'>
-        <form id='signupform'>
+        <form id='signupform' onsubmit="signup(event)">
     <h1>sign up</h1>
     <input type='text' id='name' placeholder="name"/>
     <input type='text' id='email' placeholder="email"/>
@@ -20,4 +20,41 @@
 </form>
 </div>
 </body>
+<script>
+
+
+function signup(e){
+    e.preventDefault();
+    let form = document.getElementById('signupform');
+    let userdata = {
+        name:form.name.value,
+        email:form.email.value,
+        password:form.password.value,
+        username:form.username.value,
+        mobile:form.mobile.value,
+        description:form.description.value,
+    }
+
+    userdata = JSON.stringify(userdata);
+
+    fetch(" https://masai-api-mocker.herokuapp.com/auth/register",{
+        method:'POST',
+        body:userdata,
+        headers:{
+            'Content-Type':'application/json',
+        },
+    })
+    .then((res) =>{
+        return res.json();
+    })
+    .then((res) =>{
+        console.log(res);
+        alert('registeration success')
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
+}
+
+</script>
 </html>
